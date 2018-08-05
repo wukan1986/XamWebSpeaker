@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:local="clr-namespace:XamWebSpeaker"
+            x:Class="XamWebSpeaker.MainPage"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            android:TabbedPage.ToolbarPlacement="Bottom"
+            >
+    <local:InputPage x:Name="inputPage"/>
+    <local:WebPage x:Name="webPage"/>
+    <local:SettingsPage x:Name="settingsPage"/>
+</TabbedPage>

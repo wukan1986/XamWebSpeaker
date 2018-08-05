@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="XamWebSpeaker.SettingsPage" Title="设置">
+    <ContentPage.Content>
+        <TableView Intent="Settings">
+            <TableRoot>
+                <TableSection Title="文本转语音">
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding Source={x:Reference slider_speak_rate},Path=Value,StringFormat='语速: {0:F2}'}" VerticalOptions="Center" />
+                            <Slider x:Name="slider_speak_rate" HorizontalOptions="FillAndExpand" ValueChanged="speak_rate_ValueChanged" />
+                        </StackLayout>
+                    </ViewCell>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding Source={x:Reference slider_volume},Path=Value,StringFormat='音量: {0:F2}'}" VerticalOptions="Center" />
+                            <Slider x:Name="slider_volume" HorizontalOptions="FillAndExpand" ValueChanged="volume_ValueChanged" />
+                        </StackLayout>
+                    </ViewCell>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding Source={x:Reference slider_pitch},Path=Value,StringFormat='音调: {0:F2}'}" VerticalOptions="Center" />
+                            <Slider x:Name="slider_pitch" HorizontalOptions="FillAndExpand" ValueChanged="pitch_ValueChanged" />
+                        </StackLayout>
+                    </ViewCell>
+                </TableSection>
+<!--                <TableSection Title="朗读语言">
+                    <SwitchCell x:Name="default_lang" Text="使用系统默认语言" On="true" OnChanged="Default_Lang_OnChanged" />
+                    <ViewCell>
+                        <Picker x:Name="langs" HorizontalOptions="FillAndExpand" Title="朗读语言" IsEnabled="false" />
+                    </ViewCell>
+                </TableSection>-->
+                <TableSection Title="其它">
+                    <SwitchCell x:Name="screen_lock" Text="屏幕常亮" OnChanged="ScreenLock_OnChanged" />
+                    <!--<SwitchCell x:Name="disable_image" Text="禁止加载图片" />-->
+                </TableSection>
+<!--                <TableSection Title="关于">
+                </TableSection>-->
+            </TableRoot>
+        </TableView>
+    </ContentPage.Content>
+</ContentPage>

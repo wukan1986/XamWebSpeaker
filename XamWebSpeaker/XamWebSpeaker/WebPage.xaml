@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="XamWebSpeaker.WebPage"
+             xmlns:fwv="clr-namespace:Xam.Plugin.WebView.Abstractions;assembly=Xam.Plugin.WebView.Abstractions"
+             Title="朗读">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <fwv:FormsWebView x:Name="WebContent" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <Button x:Name="Btn_Play" Text="开始" Grid.Row="1" Grid.Column="0" Clicked="Btn_Play_Clicked"/>
+        <Button x:Name="Btn_Pause" Text="暂停" Grid.Row="1" Grid.Column="1" Clicked="Btn_Pause_Clicked"/>
+
+    </Grid>
+</ContentPage>

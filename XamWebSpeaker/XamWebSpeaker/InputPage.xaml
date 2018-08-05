@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="XamWebSpeaker.InputPage" 
+             xmlns:sv="clr-namespace:AiForms.Renderers;assembly=SettingsView"
+             Title="输入">
+    <sv:SettingsView HasUnevenRows="true">
+        <sv:Section Title="网址或文本">
+            <sv:ButtonCell Title="粘贴" Command="{Binding PasteCommand}"/>
+            <ViewCell>
+                <Editor x:Name="entry_input" HeightRequest="200" Keyboard="Url" Text="https://"/>
+            </ViewCell>
+            <SwitchCell x:Name="is_text" Text="输入框中是文本" />
+            <sv:ButtonCell Title="浏览" Command="{Binding GoCommand}"/>
+        </sv:Section>
+    </sv:SettingsView>
+</ContentPage>

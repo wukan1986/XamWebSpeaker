@@ -197,11 +197,16 @@ namespace XamWebSpeaker
 
         public void Play()
         {
-            // isSpeakingPage = true;
-            isSpeakingPart = true;
+            isSpeakingPart = false;
 
-            // 感觉在小米上不管用啊
-            // DeviceDisplay.KeepScreenOn = m_IsScreenLock;
+            try
+            {
+                DeviceDisplay.KeepScreenOn = WebSpeaker.Instance.IsScreenLock;
+            }
+            catch
+            {
+
+            }
 
             DoCmd("SpeakCur()");
         }
@@ -223,26 +228,32 @@ namespace XamWebSpeaker
             webView.InjectJavascriptAsync(GetJavaScriptString() + cmd).GetAwaiter();
         }
 
-        public void SpeakTest(string text)
-        {
-            Cancel();
+        //public void SpeakTest(string text)
+        //{
+        //    // 正在朗读，先停止
+        //    if (isSpeakingPart)
+        //    {
+        //        Cancel();
+        //    }
+        //    isSpeakingPart = true;
 
-            // 直接调用Speak进行语音测试后，再回头去调用播放，只能读一段，所以新建一段
-            cts = new CancellationTokenSource();
-            CrossTextToSpeech.Current.Speak(text,
-                                speakRate: (float)m_SpeakRate,
-                                volume: (float)m_Volume,
-                                pitch: (float)m_Pitch,
-                                cancelToken: cts.Token).ContinueWith((t) =>
-                                {
-                                    
-                                },
-                                // 最后的TaskScheduler不能少，否则应用会崩溃，不同平台也有区别
-                                Device.RuntimePlatform == Device.iOS ? TaskScheduler.FromCurrentSynchronizationContext() : TaskScheduler.Current);
-        }
+        //    // 直接调用Speak进行语音测试后，再回头去调用播放，只能读一段，所以新建一段
+        //    cts = new CancellationTokenSource();
+        //    CrossTextToSpeech.Current.Speak(text,
+        //                        speakRate: (float)m_SpeakRate,
+        //                        volume: (float)m_Volume,
+        //                        pitch: (float)m_Pitch,
+        //                        cancelToken: cts.Token).ContinueWith((t) =>
+        //                        {
+        //                            isSpeakingPart = false;
+        //                            isCancelling = false;
+        //                        },
+        //                        // 最后的TaskScheduler不能少，否则应用会崩溃，不同平台也有区别
+        //                        Device.RuntimePlatform == Device.iOS ? TaskScheduler.FromCurrentSynchronizationContext() : TaskScheduler.Current);
+        //}
 
         // 将由JavaScript间接调用
-        public void Speak(bool isEnd, string text)
+        public void Speak(bool isEnd, string text, bool once = false)
         {
             // 正在朗读，先停止
             if (isSpeakingPart)
@@ -272,6 +283,9 @@ namespace XamWebSpeaker
                                         Pause();
                                         return;
                                     }
+
+                                    if (once)
+                                        return;
 
                                     SpeakNext();
                                 },

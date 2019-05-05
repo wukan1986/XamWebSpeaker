@@ -11,7 +11,6 @@ using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 using Xamarin.Essentials;
-using Plugin.TextToSpeech;
 
 namespace XamWebSpeaker
 {
@@ -33,11 +32,6 @@ namespace XamWebSpeaker
             WebSpeaker.Instance.Pitch = e.NewValue;
         }
 
-        //void Default_Lang_OnChanged(object sender, Xamarin.Forms.ToggledEventArgs e)
-        //{
-        //    langs.IsEnabled = e.Value;
-        //}
-
         void Handle_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             var x = ((Xamarin.Forms.Picker)sender).SelectedItem;
@@ -47,7 +41,14 @@ namespace XamWebSpeaker
         void ScreenLock_OnChanged(object sender, Xamarin.Forms.ToggledEventArgs e)
         {
             WebSpeaker.Instance.IsScreenLock = e.Value;
-            // DeviceDisplay.KeepScreenOn = WebSpeaker.Instance.IsScreenLock;
+            try
+            {
+                DeviceDisplay.KeepScreenOn = WebSpeaker.Instance.IsScreenLock;
+            }
+            catch
+            {
+
+            }
         }
 
 
@@ -78,7 +79,7 @@ namespace XamWebSpeaker
 
         private void btn_test_Clicked(object sender, EventArgs e)
         {
-            WebSpeaker.Instance.SpeakTest("朗读测试，欢迎使用侃侃朗读，可选段的网页朗读神器");
+            WebSpeaker.Instance.Speak(true, "朗读测试，欢迎使用侃侃朗读，可选段的网页朗读神器", true);
         }
 
         private void btn_minus_Clicked(object sender, EventArgs e)

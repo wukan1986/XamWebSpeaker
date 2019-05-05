@@ -31,10 +31,10 @@ namespace XamWebSpeaker
         }
 
         private bool tempfile_switch = true;
-        void Go_Clicked()
+        void Go_Clicked(bool is_text)
         {
             var txt = entry_input.Text.Trim();
-            if (is_text.On)
+            if (is_text)
             {
                 // 改成网页格式
                 txt = txt.Replace("\n", "</p><p>");
@@ -46,14 +46,19 @@ namespace XamWebSpeaker
                 tempfile_switch = !tempfile_switch;
 
                 File.WriteAllText(templateFileNmae, txt, Encoding.UTF8);
-
-                // txt = "file://" + templateFileNmae;
+            }
+            else
+            {
+                if (!txt.StartsWith("http"))
+                {
+                    txt = "http://" + txt;
+                }
             }
 
             if (string.IsNullOrWhiteSpace(txt))
                 return;
 
-            MainPage.Instance.SetUrl(txt, is_text.On);
+            MainPage.Instance.SetUrl(txt, is_text);
         }
 
         void Paste_Clicked()
@@ -71,12 +76,14 @@ namespace XamWebSpeaker
             On<iOS>().SetUseSafeArea(true);
 
             PasteCommand = new Command(() => Paste_Clicked());
-            GoCommand = new Command(() => Go_Clicked());
+            GoTxtCommand = new Command(() => Go_Clicked(true));
+            GoUrlCommand = new Command(() => Go_Clicked(false));
 
             BindingContext = this;
         }
 
         public ICommand PasteCommand { private set; get; }
-        public ICommand GoCommand { private set; get; }
+        public ICommand GoTxtCommand { private set; get; }
+        public ICommand GoUrlCommand { private set; get; }
     }
 }

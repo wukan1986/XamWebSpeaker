@@ -7,10 +7,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Plugin.TextToSpeech;
 using Xam.Plugin.WebView.Abstractions;
-using Xam.Plugin.WebView.Abstractions.Enumerations;
 using Xamarin.Forms;
 
 using Xamarin.Essentials;
+
 
 namespace XamWebSpeaker
 {
@@ -103,18 +103,18 @@ namespace XamWebSpeaker
         {
             get
             {
-                m_IsScreenLock = Preferences.Get(typeof(ScreenLock).Name, false);
+                m_IsScreenLock = Preferences.Get("DeviceDisplay.KeepScreenOn", false);
                 return m_IsScreenLock;
             }
             set
             {
-                Preferences.Set(typeof(ScreenLock).Name, value);
+                Preferences.Set("DeviceDisplay.KeepScreenOn", value);
                 m_IsScreenLock = value;
             }
         }
         #endregion
 
-        bool isSpeakingPage;
+        //bool isSpeakingPage;
         bool isSpeakingPart;
         bool isCancelling;
 
@@ -175,7 +175,7 @@ namespace XamWebSpeaker
 
         private void StopSpeak()
         {
-            isSpeakingPage = false;
+            // isSpeakingPage = false;
             isSpeakingPart = false;
             Cancel();
         }
@@ -197,20 +197,11 @@ namespace XamWebSpeaker
 
         public void Play()
         {
-            isSpeakingPage = true;
+            // isSpeakingPage = true;
             isSpeakingPart = true;
 
             // 感觉在小米上不管用啊
-            //if (m_IsScreenLock)
-            //{
-            //    if (!ScreenLock.IsActive)
-            //        ScreenLock.RequestActive();
-            //}
-            //else
-            //{
-            //    if (ScreenLock.IsActive)
-            //        ScreenLock.RequestRelease();
-            //}
+            // DeviceDisplay.KeepScreenOn = m_IsScreenLock;
 
             DoCmd("SpeakCur()");
         }
@@ -230,6 +221,24 @@ namespace XamWebSpeaker
         public void InitRun(string cmd)
         {
             webView.InjectJavascriptAsync(GetJavaScriptString() + cmd).GetAwaiter();
+        }
+
+        public void SpeakTest(string text)
+        {
+            Cancel();
+
+            // 直接调用Speak进行语音测试后，再回头去调用播放，只能读一段，所以新建一段
+            cts = new CancellationTokenSource();
+            CrossTextToSpeech.Current.Speak(text,
+                                speakRate: (float)m_SpeakRate,
+                                volume: (float)m_Volume,
+                                pitch: (float)m_Pitch,
+                                cancelToken: cts.Token).ContinueWith((t) =>
+                                {
+                                    
+                                },
+                                // 最后的TaskScheduler不能少，否则应用会崩溃，不同平台也有区别
+                                Device.RuntimePlatform == Device.iOS ? TaskScheduler.FromCurrentSynchronizationContext() : TaskScheduler.Current);
         }
 
         // 将由JavaScript间接调用

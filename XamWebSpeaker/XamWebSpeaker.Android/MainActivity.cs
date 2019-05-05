@@ -3,14 +3,10 @@
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
-using Android.Runtime;
 using Android.Views;
-using Android.Widget;
 using Android.OS;
 using Xam.Plugin.WebView.Droid;
-using Android.Webkit;
-using Java.Interop;
-using Plugin.TextToSpeech;
+
 
 namespace XamWebSpeaker.Droid
 {
@@ -77,7 +73,7 @@ namespace XamWebSpeaker.Droid
             // 在pc上调试webview
             // chrome://inspect/#devices
             Android.Webkit.WebView.SetWebContentsDebuggingEnabled(true);
-
+            WebSpeakerJs.Context = this;
             e.AddJavascriptInterface(WebSpeakerJs.Instance, WebSpeakerJs.INTERFACE);
         }
     }

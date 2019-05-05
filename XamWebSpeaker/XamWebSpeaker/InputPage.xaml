@@ -10,7 +10,7 @@
             <ViewCell>
                 <Editor x:Name="entry_input" HeightRequest="200" Keyboard="Url" Text="https://"/>
             </ViewCell>
-            <SwitchCell x:Name="is_text" Text="输入框中是文本" />
+            <SwitchCell x:Name="is_text" Text="上方输入框中内容是文本" />
             <sv:ButtonCell Title="浏览" Command="{Binding GoCommand}"/>
         </sv:Section>
     </sv:SettingsView>

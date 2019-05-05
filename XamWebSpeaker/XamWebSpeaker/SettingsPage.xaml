@@ -8,6 +8,13 @@
                         <StackLayout Orientation="Horizontal">
                             <Label Text="{Binding Source={x:Reference slider_speak_rate},Path=Value,StringFormat='语速: {0:F2}'}" VerticalOptions="Center" />
                             <Slider x:Name="slider_speak_rate" HorizontalOptions="FillAndExpand" ValueChanged="speak_rate_ValueChanged" />
+                            <Button x:Name="btn_minus" Text="-" Clicked="btn_minus_Clicked" VerticalOptions="Center" WidthRequest="40" Padding="0,0,0,0" Margin="0,0,0,0"/>
+                            <Button x:Name="btn_plus" Text="+" Clicked="btn_plus_Clicked" VerticalOptions="Center" WidthRequest="40" Padding="0,0,0,0" Margin="0,0,0,0"/>
+                        </StackLayout>
+                    </ViewCell>
+                    <ViewCell>
+                        <StackLayout Orientation="Vertical">
+                            <Label Text="注意：iOS系统0.5为正常语速,非常灵敏。建议先通过滑块粗调，再通过&quot;+&quot;、&quot;-&quot;微调。推荐值：0.6" VerticalOptions="Center"/>
                         </StackLayout>
                     </ViewCell>
                     <ViewCell>
@@ -22,8 +29,18 @@
                             <Slider x:Name="slider_pitch" HorizontalOptions="FillAndExpand" ValueChanged="pitch_ValueChanged" />
                         </StackLayout>
                     </ViewCell>
+                    <ViewCell>
+                        <StackLayout Orientation="Vertical">
+                            <Label Text="朗读测试，欢迎使用侃侃朗读，可选段的网页朗读神器" VerticalOptions="Center"/>
+                        </StackLayout>
+                    </ViewCell>
+                    <ViewCell>
+                        <StackLayout Orientation="Vertical">
+                            <Button x:Name="btn_test" Text="朗读测试" Clicked="btn_test_Clicked" VerticalOptions="Center"/>
+                        </StackLayout>
+                    </ViewCell>
                 </TableSection>
-<!--                <TableSection Title="朗读语言">
+                <!--                <TableSection Title="朗读语言">
                     <SwitchCell x:Name="default_lang" Text="使用系统默认语言" On="true" OnChanged="Default_Lang_OnChanged" />
                     <ViewCell>
                         <Picker x:Name="langs" HorizontalOptions="FillAndExpand" Title="朗读语言" IsEnabled="false" />
@@ -33,7 +50,7 @@
                     <SwitchCell x:Name="screen_lock" Text="屏幕常亮" OnChanged="ScreenLock_OnChanged" />
                     <!--<SwitchCell x:Name="disable_image" Text="禁止加载图片" />-->
                 </TableSection>
-<!--                <TableSection Title="关于">
+                <!--                <TableSection Title="关于">
                 </TableSection>-->
             </TableRoot>
         </TableView>

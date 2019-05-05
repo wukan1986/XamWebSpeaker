@@ -47,26 +47,9 @@ namespace XamWebSpeaker
         void ScreenLock_OnChanged(object sender, Xamarin.Forms.ToggledEventArgs e)
         {
             WebSpeaker.Instance.IsScreenLock = e.Value;
-            if (WebSpeaker.Instance.IsScreenLock)
-            {
-                ScreenLock.RequestActive();
-            }
-            else
-            {
-                ScreenLock.RequestRelease();
-            }
+            // DeviceDisplay.KeepScreenOn = WebSpeaker.Instance.IsScreenLock;
         }
 
-        //void Handle_Clicked(object sender, System.EventArgs e)
-        //{
-        //    DataTransfer.RequestAsync(new ShareTextRequest
-        //    {
-        //        Text = "abc",
-        //        Title = "def"
-        //    });
-
-        //    Browser.OpenAsync("abc", BrowserLaunchType.External);
-        //}
 
         public SettingsPage()
         {
@@ -91,6 +74,21 @@ namespace XamWebSpeaker
             slider_pitch.Maximum = 2;
             slider_pitch.Value = WebSpeaker.Instance.Pitch;
             slider_pitch.Minimum = 0;
+        }
+
+        private void btn_test_Clicked(object sender, EventArgs e)
+        {
+            WebSpeaker.Instance.SpeakTest("朗读测试，欢迎使用侃侃朗读，可选段的网页朗读神器");
+        }
+
+        private void btn_minus_Clicked(object sender, EventArgs e)
+        {
+            slider_speak_rate.Value -= 0.01;
+        }
+
+        private void btn_plus_Clicked(object sender, EventArgs e)
+        {
+            slider_speak_rate.Value += 0.01;
         }
     }
 }

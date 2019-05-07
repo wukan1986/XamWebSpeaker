@@ -23,7 +23,7 @@ namespace XamWebSpeaker
 
         private WebSpeaker webSpeaker;
 
-        public void SetUrl(string url, bool isText)
+        public void SetUrlOrText(string url, bool isText)
         {
             WebContent.ContentType = isText ? WebViewContentType.StringData : WebViewContentType.Internet;
             try

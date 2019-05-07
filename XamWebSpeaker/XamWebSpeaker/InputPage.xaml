@@ -2,13 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="XamWebSpeaker.InputPage" xmlns:sv="clr-namespace:AiForms.Renderers;assembly=SettingsView" Title="输入">
     <sv:SettingsView HasUnevenRows="true">
         <sv:Section Title="网址或文本">
+            <sv:ButtonCell Title="粘贴：来自系统剪贴板" Command="{Binding PasteCommand}" />
+            <sv:ButtonCell Title="文本显示：将当前内容做为网页的正文进行显示" Command="{Binding GoTxtCommand}" />
+            <sv:ButtonCell Title="网址浏览：将当前内容当成网址直接访问" Command="{Binding GoUrlCommand}" />
             <ViewCell>
                 <Editor x:Name="entry_input" HeightRequest="200" Keyboard="Url" Text="https://" />
             </ViewCell>
-            <sv:ButtonCell Title="粘贴：来自系统剪贴板" Command="{Binding PasteCommand}" />
-            <!--<SwitchCell x:Name="is_text" Text="上方输入框中内容是文本" />-->
-            <sv:ButtonCell Title="文本显示：将当前内容做为网页的正文进行显示" Command="{Binding GoTxtCommand}" />
-            <sv:ButtonCell Title="网址浏览：将当前内容当成网址直接访问" Command="{Binding GoUrlCommand}" />
         </sv:Section>
     </sv:SettingsView>
 </ContentPage>

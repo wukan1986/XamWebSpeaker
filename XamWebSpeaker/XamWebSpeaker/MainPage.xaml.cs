@@ -22,7 +22,7 @@ namespace XamWebSpeaker
 
         public void SetUrl(string url, bool isText)
         {
-            webPage.SetUrl(url, isText);
+            webPage.SetUrlOrText(url, isText);
             CurrentPage = webPage;
         }
 
